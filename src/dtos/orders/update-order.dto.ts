@@ -4,6 +4,7 @@ export const updateOrderDTO = z.object({
   orderId: z.number(),
   customerId: z.string(),
   orderDate: z.coerce.date(),
+  role: z.string(),
 });
 
 export const updateOrderController = z.object({

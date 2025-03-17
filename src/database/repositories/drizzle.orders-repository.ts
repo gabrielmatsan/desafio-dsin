@@ -1,7 +1,8 @@
-import { and, eq, gte, lte } from "drizzle-orm";
+import { and, count, eq, gte, lte, sql, sum } from "drizzle-orm";
 import { db } from "..";
 import type { IOrdersRepository } from "../interfaces/orders-repository.interface";
-import { orders, type OrderSelect } from "../schema";
+import { orders, orderServices, services, type OrderSelect } from "../schema";
+import dayjs from "dayjs";
 
 export class DrizzleOrdersRepository implements IOrdersRepository {
   async create(customerId: string, orderDate: Date): Promise<OrderSelect> {
@@ -69,5 +70,30 @@ export class DrizzleOrdersRepository implements IOrdersRepository {
     }
 
     return order;
+  }
+
+  async weeklyStatistics(date: Date) {
+    const startOfWeek = dayjs(date).startOf("week");
+    const endOfWeek = dayjs(date).endOf("week");
+
+    // Obter a quantidade de pedidos na semana e o dinheiro total gasto
+    const result = await db
+      .select({
+        service: services.name,
+        totalOrders: count(orders.id),
+        totalAmount: sum(services.priceInCents).mapWith((value) => value ?? 0),
+      })
+      .from(orders)
+      .innerJoin(orderServices, eq(orders.id, orderServices.orderId))
+      .innerJoin(services, eq(orderServices.serviceId, services.id))
+      .where(
+        and(
+          gte(orders.orderDate, startOfWeek.toDate()),
+          lte(orders.orderDate, endOfWeek.toDate())
+        )
+      )
+      .groupBy(services.id);
+
+    return result;
   }
 }

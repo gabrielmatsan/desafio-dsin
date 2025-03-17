@@ -42,20 +42,24 @@ export class OrdersService {
   }
 
   async update(data: UpdateOrderDTO): Promise<OrderSelect> {
-    const { orderId, customerId, orderDate } = data;
+    const { orderId, customerId, orderDate, role } = data;
 
     const isOrderExists = await this.ordersRepository.findById(orderId);
     if (!isOrderExists) {
       throw new OrderNotFoundError();
     }
 
-    if (isOrderExists.customerId !== customerId) {
+    const isAdmin = role === "admin";
+    const isOrderOwner = isOrderExists.customerId === customerId;
+
+    // Verificar se o usuário é um administrador ou o proprietário do pedido
+    if (!isAdmin && !isOrderOwner) {
       throw new NotAllowedError();
     }
 
     // Usar a nova data proposta pelo usuário (não a existente)
     const currentDate = dayjs();
-    const newDate = dayjs(orderDate); // Renomeada para evitar conflito com o parâmetro
+    const newDate = dayjs(orderDate);
 
     // Verificar se a nova data está no passado
     if (newDate.isBefore(currentDate)) {
@@ -65,11 +69,16 @@ export class OrdersService {
     // Calcular a diferença entre a nova data e a data atual
     const diffDays = newDate.diff(currentDate, "days");
 
-    if (diffDays < 2) {
+    if (diffDays < 2 && !isAdmin) {
       throw new LessThanTwoDaysError();
     }
 
     return this.ordersRepository.update(orderId, customerId, orderDate);
+  }
+
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  async getWeeklyStatistics(date: Date): Promise<any> {
+    return this.ordersRepository.weeklyStatistics(date);
   }
 
   /**

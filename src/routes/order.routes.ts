@@ -1,6 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import { controllers } from "../factories/factory.controllers";
 import { verifyJWT } from "../middlewares/verify.jwt";
+import { verifyUserRole } from "../middlewares/verify.role";
 
 export const ordersRoutes = (app: FastifyInstance) => {
   app.addHook("onRequest", verifyJWT);
@@ -16,4 +17,15 @@ export const ordersRoutes = (app: FastifyInstance) => {
       controllers.ordersControllers
     )
   );
+
+  app.register(async (adminRoutes) => {
+    adminRoutes.addHook("onRequest", verifyUserRole("admin"));
+
+    adminRoutes.get(
+      "/weekly-stats",
+      controllers.ordersControllers.getWeeklyStatistics.bind(
+        controllers.ordersControllers
+      )
+    );
+  });
 };
