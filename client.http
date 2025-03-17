@@ -31,7 +31,7 @@ Content-Type: application/json
 # para testar, gerar token na rota de autenticação com a conta de administrador e colocar o token no cookie
 POST http://localhost:3333/services/new-service
 Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJzdWIiOiJxdDd4d2ZhMzZxOXpoc3o3NTJkZnlkZnoiLCJpYXQiOjE3NDIxNjAwNzMsImV4cCI6MTc0MjE2MzY3M30.bGYdeouGX97AO7fBJUNpkD2LA8z_FjfOjTDtMRtRY_g
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJzdWIiOiJxdDd4d2ZhMzZxOXpoc3o3NTJkZnlkZnoiLCJpYXQiOjE3NDIxNzcyMzYsImV4cCI6MTc0MjE4MDgzNn0.HoSiJ_WdbYpgUDJaXZRDNOGulIbd9bZhhWt_OZRui8M
 
 {
   "name": "Service 1",
@@ -48,8 +48,8 @@ Content-Type: application/json
 Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJzdWIiOiJxdDd4d2ZhMzZxOXpoc3o3NTJkZnlkZnoiLCJpYXQiOjE3NDIxNjY0MDksImV4cCI6MTc0MjE3MDAwOX0.r0KP1_LDxiTV_wEd0yxTJ0-Lnk0lEx_LznByOtMJxbI
 
 {
-  "orderDate": "2026-01-01T12:00:00",
-  "servicesId": [1]
+  "orderDate": "2025-11-01T12:00:00",
+  "servicesId": [1,2]
 }
 
 ###

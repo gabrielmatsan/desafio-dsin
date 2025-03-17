@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import type { IOrderServices } from "../database/interfaces/order-services.interface";
 import type { IOrdersRepository } from "../database/interfaces/orders-repository.interface";
 import type { OrderSelect } from "../database/schema";
@@ -53,22 +54,44 @@ export class OrdersService {
     }
 
     // Usar a nova data proposta pelo usuário (não a existente)
-    const currentDate = new Date();
-    const newDate = new Date(orderDate); // Renomeada para evitar conflito com o parâmetro
+    const currentDate = dayjs();
+    const newDate = dayjs(orderDate); // Renomeada para evitar conflito com o parâmetro
 
     // Verificar se a nova data está no passado
-    if (newDate.getTime() < currentDate.getTime()) {
+    if (newDate.isBefore(currentDate)) {
       throw new NotAllowedError();
     }
 
     // Calcular a diferença entre a nova data e a data atual
-    const diffTime = newDate.getTime() - currentDate.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const diffDays = newDate.diff(currentDate, "days");
 
     if (diffDays < 2) {
       throw new LessThanTwoDaysError();
     }
 
     return this.ordersRepository.update(orderId, customerId, orderDate);
+  }
+
+  /**
+   * Verifica se o cliente já possui um agendamento na mesma semana
+   */
+  private async checkExistingAppointmentInSameWeek(
+    customerId: string,
+    date: Date
+  ): Promise<OrderSelect | null> {
+    const targetDate = dayjs(date);
+
+    // Obter início da semana (domingo)
+    const startOfWeek = targetDate.startOf("week");
+
+    // Obter fim da semana (sábado)
+    const endOfWeek = targetDate.endOf("week");
+
+    // Buscar agendamentos do cliente nesta semana
+    return await this.ordersRepository.findCustomerOrderInDateRange(
+      customerId,
+      startOfWeek.toDate(),
+      endOfWeek.toDate()
+    );
   }
 }

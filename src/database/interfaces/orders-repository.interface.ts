@@ -9,4 +9,9 @@ export interface IOrdersRepository {
     customerId: string,
     orderDate: Date
   ): Promise<OrderSelect>;
+  findCustomerOrderInDateRange(
+    customerId: string,
+    startDate: Date,
+    endDate: Date
+  ): Promise<OrderSelect | null>;
 }

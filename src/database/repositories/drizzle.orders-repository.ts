@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm";
+import { and, eq, gte, lte } from "drizzle-orm";
 import { db } from "..";
 import type { IOrdersRepository } from "../interfaces/orders-repository.interface";
 import { orders, type OrderSelect } from "../schema";
@@ -42,6 +42,31 @@ export class DrizzleOrdersRepository implements IOrdersRepository {
       .where(and(eq(orders.id, orderId), eq(orders.customerId, customerId)))
       .returning()
       .execute();
+
+    return order;
+  }
+
+  async findCustomerOrderInDateRange(
+    customerId: string,
+    startDate: Date,
+    endDate: Date
+  ) {
+    const [order] = await db
+      .select()
+      .from(orders)
+      .where(
+        and(
+          eq(orders.customerId, customerId),
+          gte(orders.orderDate, startDate),
+          lte(orders.orderDate, endDate)
+        )
+      )
+      .limit(1)
+      .execute();
+
+    if (!order) {
+      return null;
+    }
 
     return order;
   }
