@@ -16,4 +16,6 @@ export interface IOrdersRepository {
   ): Promise<OrderSelect | null>;
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   weeklyStatistics(date: Date): Promise<any>;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  getOrdersWeeklyPending(date: Date): Promise<any>;
 }

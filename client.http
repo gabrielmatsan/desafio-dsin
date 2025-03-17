@@ -45,10 +45,10 @@ Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJzdWIiO
 # @name criar_agendamento
 POST http://localhost:3333/orders/create-order
 Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJzdWIiOiJ3aXdnOTFmYjk3dmFjOWgwOGdseWVuNDEiLCJpYXQiOjE3NDIyMTMzODQsImV4cCI6MTc0MjIxNjk4NH0.y2ClKt0YTPlx3PQ9VVeQ4pyam9-bip0wsVhzYdsG19k
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJzdWIiOiJxdDd4d2ZhMzZxOXpoc3o3NTJkZnlkZnoiLCJpYXQiOjE3NDIyMjA3MjYsImV4cCI6MTc0MjIyNDMyNn0.YpkA2kykNsvXA6QuLAYvGMxHii2xWQ5QCGC0JjFda4o
 
 {
-  "orderDate": "2025-11-01T12:00:00",
+  "orderDate": "2025-03-17T12:00:00",
   "servicesId": [1,2]
 }
 
@@ -71,3 +71,11 @@ Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJzdWIiO
 GET http://localhost:3333/orders/weekly-stats?date=2025-03-17
 Content-Type: application/json
 Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJzdWIiOiJxdDd4d2ZhMzZxOXpoc3o3NTJkZnlkZnoiLCJpYXQiOjE3NDIyMTIyNjAsImV4cCI6MTc0MjIxNTg2MH0.But4DTZJRXZSn9bt59rdRMpe7kxLRfjKnV0KpcDxhJw
+
+
+###
+
+# @name pedidos-pendentes-da-semana-da-data(admin-only)
+GET http://localhost:3333/orders/pending-orders?date=2025-03-17
+Content-Type: application/json
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJzdWIiOiJxdDd4d2ZhMzZxOXpoc3o3NTJkZnlkZnoiLCJpYXQiOjE3NDIyMjA3MjYsImV4cCI6MTc0MjIyNDMyNn0.YpkA2kykNsvXA6QuLAYvGMxHii2xWQ5QCGC0JjFda4o

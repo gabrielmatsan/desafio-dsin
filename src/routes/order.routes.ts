@@ -27,5 +27,12 @@ export const ordersRoutes = (app: FastifyInstance) => {
         controllers.ordersControllers
       )
     );
+
+    adminRoutes.get(
+      "/pending-orders",
+      controllers.ordersControllers.getOrdersWeeklyPending.bind(
+        controllers.ordersControllers
+      )
+    );
   });
 };

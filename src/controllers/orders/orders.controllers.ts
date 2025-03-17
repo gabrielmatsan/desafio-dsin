@@ -111,4 +111,33 @@ export class OrdersControllers {
       reply.code(500).send({ message: "Internal server error" });
     }
   }
+
+  async getOrdersWeeklyPending(req: FastifyRequest, reply: FastifyReply) {
+    try {
+      const result = getWeeklyStatsDto.safeParse(req.query);
+
+      if (!result.success) {
+        return reply.status(400).send({
+          message: "Invalid data",
+          errors: result.error.errors,
+        });
+      }
+
+      const { date } = result.data;
+
+      const formatDate = new Date(date);
+
+      const statistics =
+        await this.ordersService.getOrdersWeeklyPending(formatDate);
+
+      reply.code(200).send({ statistics });
+    } catch (error) {
+      if (error instanceof AppError) {
+        return reply.code(error.statusCode).send({ message: error.message });
+      }
+
+      console.error(error);
+      reply.code(500).send({ message: "Internal server error" });
+    }
+  }
 }

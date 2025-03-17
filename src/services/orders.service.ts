@@ -81,6 +81,11 @@ export class OrdersService {
     return this.ordersRepository.weeklyStatistics(date);
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  async getOrdersWeeklyPending(date: Date): Promise<any> {
+    return this.ordersRepository.getOrdersWeeklyPending(date);
+  }
+
   /**
    * Verifica se o cliente já possui um agendamento na mesma semana
    */
