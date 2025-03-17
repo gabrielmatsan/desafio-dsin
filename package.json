@@ -1,0 +1,42 @@
+{
+  "name": "desafio-dsin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "test": "vitest run --dir src/services/tests/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.13.10",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/jwt": "^9.1.0",
+    "@paralleldrive/cuid2": "^2.2.2",
+    "@types/bcryptjs": "^2.4.6",
+    "@vitest/coverage-v8": "^3.0.8",
+    "bcryptjs": "^3.0.2",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.4.7",
+    "drizzle-kit": "^0.30.5",
+    "drizzle-orm": "^0.40.0",
+    "fastify": "^5.2.1",
+    "globals": "^16.0.0",
+    "postgres": "^3.4.5",
+    "prettier": "^3.5.3",
+    "ts-node-dev": "^2.0.0",
+    "typescript-eslint": "^8.26.1",
+    "unplugin-swc": "^1.5.1",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.0.8",
+    "zod": "^3.24.2"
+  }
+}

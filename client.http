@@ -1,0 +1,65 @@
+###
+
+# @name criar_cliente
+POST  http://localhost:3333/customers/sign-in
+Content-Type: application/json
+
+{
+  "email": "johndoe@hotmail.com",
+  "password": "123456",
+  "cpf": "12345678911",
+  "name": "John Doe",
+  "phone": "12345678911"
+}
+
+###
+
+
+# @name autenticar_cliente
+POST http://localhost:3333/customers/sign-up
+Content-Type: application/json
+
+{
+  "email": "johndoe@hotmail.com",
+  "password": "123456"
+}
+
+###
+
+
+# @name criar_servico(admin-only)
+# para testar, gerar token na rota de autenticação com a conta de administrador e colocar o token no cookie
+POST http://localhost:3333/services/new-service
+Content-Type: application/json
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJzdWIiOiJxdDd4d2ZhMzZxOXpoc3o3NTJkZnlkZnoiLCJpYXQiOjE3NDIxNjAwNzMsImV4cCI6MTc0MjE2MzY3M30.bGYdeouGX97AO7fBJUNpkD2LA8z_FjfOjTDtMRtRY_g
+
+{
+  "name": "Service 1",
+  "description": "Service 1 description",
+  "priceInCents": 100,
+  "durationInMinutes": 60
+}
+
+###
+
+# @name criar_agendamento
+POST http://localhost:3333/orders/create-order
+Content-Type: application/json
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJzdWIiOiJxdDd4d2ZhMzZxOXpoc3o3NTJkZnlkZnoiLCJpYXQiOjE3NDIxNjY0MDksImV4cCI6MTc0MjE3MDAwOX0.r0KP1_LDxiTV_wEd0yxTJ0-Lnk0lEx_LznByOtMJxbI
+
+{
+  "orderDate": "2026-01-01T12:00:00",
+  "servicesId": [1]
+}
+
+###
+
+# @name update_agendamento
+PATCH  http://localhost:3333/orders/update-order/1
+Content-Type: application/json
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJzdWIiOiJxdDd4d2ZhMzZxOXpoc3o3NTJkZnlkZnoiLCJpYXQiOjE3NDIxNzAwNTgsImV4cCI6MTc0MjE3MzY1OH0.GBphSTqAvfV6DuqR-0ZsUk7O8K4bmjtq4xFyBX3mzhI
+
+{
+  "orderDate": "2025-03-17T16:45:33",
+  "servicesId": [1]
+}
